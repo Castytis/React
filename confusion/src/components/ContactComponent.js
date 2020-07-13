@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Call } from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
 class Contact extends  Component {
@@ -67,7 +67,12 @@ class Contact extends  Component {
                     <div className="col-12 col-md-9">
                         <Form>
                             <FormGroup row>
-                                <Label for="firstname" md={2}> First Name</Label>
+                                <Label htmlfor="firstname" md={2}> First Name</Label>
+                                <Col md={10}>
+                                    <Input type="text" id="firstname" name="firstname"
+                                    placeholder="First Name"
+                                    value={this.state.firstname} />
+                                </Col>
                             </FormGroup>
                         </Form>
                     </div>
