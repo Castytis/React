@@ -55,7 +55,7 @@ import {Link } from 'react-router-dom'
         }
     }
 
-    const Dishdetail = (props) => {
+    const DishDetail = (props) => {
         if (props.dish == null) {
             return (<div></div>)
         }
@@ -85,7 +85,4 @@ import {Link } from 'react-router-dom'
         )
     }
 
-
-
-
-export default Dishdetail 
+export default DishDetail 
