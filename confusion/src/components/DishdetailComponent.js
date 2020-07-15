@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import {Link } from 'react-router-dom'
-
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
+    Button, Modal, ModalHeader, ModalBody, FormGroup, Form, Input, Label} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 class CommentForm extends Component {
         constructor(props){
