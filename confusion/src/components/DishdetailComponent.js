@@ -2,87 +2,105 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import {Link } from 'react-router-dom'
 
-    function RenderComments({comments}) {
 
-        if (comments == null) {
-            return (<div></div>)
+class CommentForm extends Component {
+        constructor(props){
+            super(props);
+            this.state={
+                isModalOpen:false
+            }
         }
 
-        const dishComment = comments.map((comment) => {  
-            
-            return (
-                <li key={comment.id}>
-                    <p>{comment.comment}</p>
-                    <p>-- {comment.author} , 
-                    {new Intl.DateTimeFormat('en-GB', {
-                            year: "numeric",
-                            month: "long",
-                            day: "2-digit"
-                        }).format(new Date(comment.date))}
-                    </p>
-                </li>
-            )
-        })
-        
-        return (
-            <div className='col-12 col-md-5 m-1'>
-                <h4> Comments </h4>
-                <ul className='list-unstyled'>   
-                    {dishComment}
-                </ul>
-            </div>
-        )
-    }
-
-    function RenderDish({dish}) {
-        if (dish != null) {
-            return (
-                <div className='col-12 col-md-5 m-1'>
-                    <Card>
-                        <CardImg width="100%" src={dish.image} alt={dish.name}/>
-                        <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                        </CardBody>
-                    </Card>
-                </div>
-            )
+        toggleModal() {
+            this.setState({
+              isModalOpen: !this.state.isModalOpen
+            });
+          }
+    
+        handleModal(event){
+            this.toggleModal();
         }
-        else {
-            return (
-            <div></div>
+
+        render() {
+            return(
+                <React.Fragment>
+                <Navbar dark expand="md">
+                    <div className="container">
+                        <NavbarToggler onClick={this.toggleNav} />
+                        <NavbarBrand className="mr-auto" href="/">
+                            <img src="assets/images/logo.png" height="30" width="41" alt="Ristorante Con Fusion" />
+                        </NavbarBrand>
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav navbar>
+                                <NavItem>
+                                    <NavLink  className="nav-link" to="/home">
+                                        <span className="fa fa-home fa-lg"></span> Home
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink  className="nav-link" to="/aboutus">
+                                        <span className="fa fa-info fa-lg"></span> About Us
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink  className="nav-link" to="/menu">
+                                        <span className="fa fa-list fa-lg"></span> Menu
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink  className="nav-link" to="/contactus">
+                                        <span className="fa fa-address-card fa-lg"></span> Contact Us
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                            <Nav className ="ml-auto" navbar>
+                                <NavItem>
+                                    <Button outline onClick={this.toggleModal}>
+                                        <span className="fa fa-sign-in fa-lg"></span> Login
+                                    </Button>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+                    </div>
+                </Navbar>
+                <Jumbotron>
+                    <div className="container">
+                        <div className="row row-header">
+                            <div className="col-12 col-sm-6">
+                                <h1>Ristorante Con Fusion</h1>
+                                <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmaking creations will tickle your culinary senses</p>
+                            </div>
+                        </div>
+                    </div>
+                </Jumbotron>
+                   <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}> Login </ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={this.handleLogin}>
+                            <FormGroup>
+                                <Label htmlfor ="username"> Username</Label>
+                                <Input type="text" id ="username" name = "username" 
+                                innerRef ={(input) => this.username = input}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlfor ="password"> Password</Label>
+                                <Input type="password" id ="password" name = "password" 
+                                 innerRef ={(input) => this.password = input}/>
+                            </FormGroup>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type ="checkbox" name="remember" 
+                                     innerRef ={(input) => this.remember = input}/>
+                                    Remember me
+                                </Label>
+                            </FormGroup>
+                            <Button type ="submit" value ="submit" color ="primary"> Login</Button>
+                        </Form>
+                    </ModalBody>
+                </Modal>
+                </React.Fragment>
             );
         }
-    }
-
-    const DishDetail = (props) => {
-        if (props.dish == null) {
-            return (<div></div>)
-        }
-        return (
-            <div class="container">
-                     <div className="row">
-                      <Breadcrumb>
-                        <BreadcrumbItem> 
-                            <Link to="/menu"> Menu </Link>
-                        </BreadcrumbItem>
-                        <BreadcrumbItem active> 
-                            {props.dish.name}
-                        </BreadcrumbItem>
-                        
-                      </Breadcrumb>
-                      <div className="col-12">
-                          <h3> {props.dish.name} </h3>
-                          <hr />
-                      </div>
-                  </div>
-
-            <div className='row'>
-                <RenderDish dish={props.dish} />
-                <RenderComments comments={props.comments} />
-                </div>
-                </div>
-        )
-    }
+}
 
 export default DishDetail 
