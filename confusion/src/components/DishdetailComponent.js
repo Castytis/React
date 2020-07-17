@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, 
          CardBody, CardTitle, Breadcrumb, BreadcrumbItem, 
          Button, ModalBody, ModalHeader, Modal} from 'reactstrap';
@@ -20,6 +19,24 @@ class CommentForm extends Component {
           isModalOpen: !this.state.isModalOpen
         });
       }
+
+      render(){
+          return(
+              <React.Fragment>
+                  <Button outline onClick={this.toggleModal}>
+                      <span className = "fa fa-pencil"> Submit Comment </span>
+                  </Button>
+                  <Modal isOpen={this.state.isModalOpen} toggle ={this.toggleModal}>
+                      <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                  <ModalBody>
+                    Modal
+                  </ModalBody>
+                  </Modal>
+              </React.Fragment>
+          )
+      }
+    }
+
 
 function RenderComments({comments}) {
 
@@ -49,6 +66,7 @@ function RenderComments({comments}) {
                 <ul className='list-unstyled'>   
                     {dishComment}
                 </ul>
+                <CommentForm></CommentForm>
             </div>
         )
     }
@@ -103,6 +121,6 @@ function RenderComments({comments}) {
                 </div>
         )
     }
-}
+
 
 export default DishDetail 
