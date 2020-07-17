@@ -1,8 +1,9 @@
 import { Card, CardImg, CardImgOverlay, CardText, 
          CardBody, CardTitle, Breadcrumb, BreadcrumbItem, 
-         Button, ModalBody, ModalHeader, Modal} from 'reactstrap';
+         Button, ModalBody, ModalHeader, Modal, Row, Label, Col} from 'reactstrap';
 import {Link } from 'react-router-dom'
 import React, {Component} from 'react';
+import { Control, LocalForm, Errors } from "react-redux-form";
 
 class CommentForm extends Component {
 
@@ -29,7 +30,55 @@ class CommentForm extends Component {
                   <Modal isOpen={this.state.isModalOpen} toggle ={this.toggleModal}>
                       <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                   <ModalBody>
-                    Modal
+                    <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                    <Row className="form-group">
+                <Label htmlFor="rating" md={2}>
+                  Rating
+                </Label>
+                <Col md={10}>
+                  <Control.select
+                    model=".rating"
+                    id="rating"
+                    name="rating"
+                    placeholder="1"
+                    className="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </Control.select>
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Label htmlFor="author" md={2}>
+                  Your Name
+                </Label>
+                <Col md={10}>
+                  <Control.text
+                    model=".author"
+                    id="author"
+                    name="author"
+                    placeholder="Your Name"
+                    className="form-control"
+                  />
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Label htmlFor="comment" md={2}>
+                  Comment
+                </Label>
+                <Col md={10}>
+                  <Control.textarea
+                    model=".comment"
+                    id="comment"
+                    name="comment"
+                    rows={6}
+                    className="form-control"
+                  />
+                </Col>
+              </Row>
+                    </LocalForm>
                   </ModalBody>
                   </Modal>
               </React.Fragment>
