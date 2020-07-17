@@ -5,6 +5,10 @@ import {Link } from 'react-router-dom'
 import React, {Component} from 'react';
 import { Control, LocalForm, Errors } from "react-redux-form";
 
+const required = val => val && val.length;
+const maxLength = len => val => !val || val.length <= len;
+const minLength = len => val => val && val.length >= len;
+
 class CommentForm extends Component {
 
     constructor(props) {
@@ -61,7 +65,22 @@ class CommentForm extends Component {
                     name="author"
                     placeholder="Your Name"
                     className="form-control"
+                    validators={{
+                        required, 
+                        minLength: minLength(3), 
+                        maxLength: maxLength(15)
+                    }}
                   />
+                  <Errors 
+                   className="text-danger"
+                   model=".author"
+                   show="touched"
+                   messages={{
+                    required: 'Required',
+                    minLength: 'The author field should at least be three characters long',
+                    maxLength: 'The author field should be less than or equal to 15 characters'
+                   }}
+                   />
                 </Col>
               </Row>
               <Row className="form-group">
@@ -76,6 +95,13 @@ class CommentForm extends Component {
                     rows={6}
                     className="form-control"
                   />
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Col md={{ size: 10, offset: 2 }}>
+                  <Button type="submit" color="primary">
+                    Submit
+                  </Button>
                 </Col>
               </Row>
                     </LocalForm>
