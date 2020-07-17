@@ -1,8 +1,27 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardText, 
+         CardBody, CardTitle, Breadcrumb, BreadcrumbItem, 
+         Button, ModalBody, ModalHeader, Modal} from 'reactstrap';
 import {Link } from 'react-router-dom'
+import React, {Component} from 'react';
 
-    function RenderComments({comments}) {
+class CommentForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false
+        };
+        this.toggleModal = this.toggleModal.bind(this);
+    }
+
+    toggleModal() {
+        this.setState({
+          isModalOpen: !this.state.isModalOpen
+        });
+      }
+
+function RenderComments({comments}) {
 
         if (comments == null) {
             return (<div></div>)
@@ -84,5 +103,6 @@ import {Link } from 'react-router-dom'
                 </div>
         )
     }
+}
 
 export default DishDetail 
