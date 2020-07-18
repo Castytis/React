@@ -4,6 +4,7 @@ import { Card, CardImg, CardImgOverlay, CardText,
 import {Link } from 'react-router-dom'
 import React, {Component} from 'react';
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { Loading } from './LoadingComponent';
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
@@ -28,6 +29,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
       this.toggleModal();
+
       this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
