@@ -25,6 +25,11 @@ class CommentForm extends Component {
         });
       }
 
+    handleSubmit(values) {
+      this.toggleModal();
+      this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    }
+
       render(){
           return(
               <React.Fragment>
@@ -34,7 +39,7 @@ class CommentForm extends Component {
                   <Modal isOpen={this.state.isModalOpen} toggle ={this.toggleModal}>
                       <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                   <ModalBody>
-                    <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                    <LocalForm onSubmit={values => this.handleSubmit}>
                     <Row className="form-group">
                 <Label htmlFor="rating" md={2}>
                   Rating
@@ -113,7 +118,7 @@ class CommentForm extends Component {
     }
 
 
-function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
 
         if (comments == null) {
             return (<div></div>)
@@ -141,7 +146,7 @@ function RenderComments({comments}) {
                 <ul className='list-unstyled'>   
                     {dishComment}
                 </ul>
-                <CommentForm></CommentForm>
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         )
     }
@@ -191,7 +196,9 @@ function RenderComments({comments}) {
 
             <div className='row'>
                 <RenderDish dish={props.dish} />
-                <RenderComments comments={props.comments} />
+                <RenderComments comments={props.comments}
+                  addComment = {props.addComment}
+                  dishId = {props.dish.id} />
                 </div>
                 </div>
         )
